@@ -103,4 +103,33 @@ router.delete('/projects/:id', (req, res) => {
 }); 
 
 
+// Stretch Problem part 1/2 tasks
+// Get tasks based on project id
+router.get('/projects/:id/tasks', (req, res) => {
+  const id = req.params.id; 
+
+  Project.getProjectsById(id)
+        .then(project => {
+          if (project) { 
+            Project.getProjectTasks(id)
+                  .then(task => {
+                    if (task) {
+                      res.status(201).json({project, tasks: task})
+                    } else {
+                      res.status(404).json({ message: 'Could not find task with given id.' });
+                    }    
+                  })
+                  .catch(error => {
+                      res.status(500).json({message: 'Failed to find task', error})
+                  })
+          } else {
+            res.status(404).json({ message: 'Could not find project with given id.' });
+          }
+        })
+        .catch(error => {
+          res.status(500).json({ message: 'Failed to get project task.', error });
+        });
+});
+
+
 module.exports = router; 

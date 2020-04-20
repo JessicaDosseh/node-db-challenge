@@ -6,6 +6,8 @@ module.exports = {
   addProjects,
   updateProjects,
   removeProjects,
+
+  getProjectTasks,
 };
 
 
@@ -43,4 +45,18 @@ function removeProjects(id) {
   return db('projects')
         .where({id})
         .del();
+}
+
+// ----------------------------------------------
+
+// CRUD operations for project tasks: 
+
+// GET /api/projects/:id/tasks - get tasks based on project id
+function getProjectTasks(id) {
+  return db('projects as p')
+    .join('tasks as t', 'p.id', 't.project_id')
+    .select( 
+      't.id', 't.description', 't.notes', 't.completed'
+    )
+    .where({project_id: id})
 }
