@@ -8,14 +8,16 @@ exports.up = function(knex) {
       tbl.string('project_name', 128)
          .notNullable()
       tbl.text('description')
-      tbl.boolean('completed') // default value of false
+      tbl.boolean('completed') 
+         .defaultTo(0) // default value of false
          .notNullable(); 
     })
 
   // Manage Resources.
     .createTable('resources', tbl => {
       tbl.increments(); 
-      tbl.string(' resource_name', 128)
+      tbl.string('resource_name', 128)
+         .unique()
          .notNullable()
       tbl.text('description');
     })
@@ -32,7 +34,8 @@ exports.up = function(knex) {
       tbl.text('description')
          .notNullable()
       tbl.text('notes')
-      tbl.boolean('completed') // default value of false
+      tbl.boolean('completed')
+         .defaultTo(0) // default value of false
          .notNullable(); 
     })
 

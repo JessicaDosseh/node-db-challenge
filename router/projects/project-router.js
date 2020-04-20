@@ -9,7 +9,7 @@ const router = express.Router();
 // CRUD operations for Projects: 
 
 // Get project master list
-router.get('/', (req, res) => {
+router.get('/projects', (req, res) => {
   Project.getProjects()
         .then(projects => {
           if (projects) {
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 });
 
 // Get a specific project
-router.get('/:id', (req, res) => {
+router.get('/projects/:id', (req, res) => {
   const id = req.params.id; 
 
   Project.getProjectsById(id)
@@ -41,7 +41,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Add a new project
-router.post('/', (req, res) => {
+router.post('/projects', (req, res) => {
   const projectData = req.body;
 
   Project.addProjects(projectData)
@@ -58,7 +58,7 @@ router.post('/', (req, res) => {
 }); 
 
 // Updates a project
-router.put('/:id', (req, res) => {
+router.put('/projects/:id', (req, res) => {
   const id = req.params.id;
   const changes = req.body;
 
@@ -86,7 +86,7 @@ router.put('/:id', (req, res) => {
 }); 
 
 // Remove a given project
-router.delete('/:id', (req, res) => {
+router.delete('/projects/:id', (req, res) => {
   const id = req.params.id;
 
   Project.removeProjects(id)
